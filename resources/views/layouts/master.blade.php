@@ -87,9 +87,9 @@
                         </li>
                         <li class="profile dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <div class="img" style="background-image: url('https://avatars3.githubusercontent.com/u/3959008?v=3&s=40')">
+                            <div class="img" style="background-image: url('{{Auth::user()->photo}}')">
                                 </div>
-                                <span class="name"> John Doe </span>
+                                <span class="name"> {{Auth::user()->name}} </span>
                             </a>
                             <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <a class="dropdown-item" href="#">
@@ -116,7 +116,7 @@
                                 <span class="l l3"></span>
                                 <span class="l l4"></span>
                                 <span class="l l5"></span>
-                            </div> Modular Admin
+                            </div>Stock Admin
                         </div>
                     </div>
                     <nav class="menu">
@@ -127,11 +127,12 @@
                             </li>
                             <li>
                                 <a href="">
-                                    <i class="fa fa-th-large"></i> Items Manager <i class="fa arrow"></i>
+                                    <i class="fa fa-key"></i> Security <i class="fa arrow"></i>
                                 </a>
                                 <ul class="sidebar-nav">
                                     <li>
-                                        <a href="items-list.html"> Items List </a>
+                                    <a href="{{url('user')}}">
+                                            <i class="fa fa-arrow-right"></i> Users</a>
                                     </li>
                                     <li>
                                         <a href="item-editor.html"> Item Editor </a>

@@ -11,8 +11,16 @@
 |
 */
 
-Route::get('/', 'DashboardController@index');
-
+Route::group(['middleware'=>'auth'], function(){
+    
+    Route::get('/', 'DashboardController@index');
+    //Users route
+    Route::get('user', 'UserController@index');
+    Route::get('user/create', 'UserController@create');
+    Route::get('user/delete/{id}', 'UserController@delete');
+    Route::get('user/edit/{id}', 'UserController@edit');
+    Route::post('user/save', 'UserController@save');
+    Route::post('user/update', 'UserController@update');
+    Route::get('user/logout', 'UserController@logout');
+});
 Auth::routes();
-
-Route::get('user/logout', 'UserController@logout');
