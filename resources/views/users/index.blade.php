@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('header')
- <strong> <i class="fa fa-user"></i> Users</strong>   
+ <strong> <i class="fa fa-user"></i> {{trans('label.user')}}</strong>   
 @endsection
 @section('content')
     <div class="card card-gray">
         <div class="toolbok">
         <a href="{{url('user/create')}}" class="btn btn-sm btn-primary btn-oval">
-                <i class="fa fa-plus-circle"></i> Create
+                <i class="fa fa-plus-circle"></i> {{trans('label.create')}}
             </a>
         </div>
         <div class="card-block">
@@ -24,11 +24,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Photo</th>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Action</th>
+                        <th>{{trans('label.photo')}}</th>
+                        <th>{{trans('label.name')}}</th>
+                        <th>{{trans('label.username')}}</th>
+                        <th>{{trans('label.email')}}</th>
+                        <th>{{trans('label.role')}}</th>
+                        <th>{{trans('label.language')}}</th>
+                        <th>{{trans('label.action')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +42,10 @@
                         <td>{{$user->name}}</td> 
                         <td>{{$user->username}}</td>
                         <td>{{$user->email}}</td>
+                        <td>{{$user->rname}}</td>
+                        <td>
+                            {{$user->language=='en'?'English':'ភាសាខ្មែរ'}}
+                        </td>
                         <td>
                             <a href="{{url('user/delete/'.$user->id)}}" class="text-danger" title="Delete" onclick="return confirm('Are you sure!')">
                                <i class="fa fa-trash"></i>

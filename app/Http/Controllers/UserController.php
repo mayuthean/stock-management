@@ -7,32 +7,47 @@ use Auth;
 use DB;
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            app()->setLocale(Auth::user()->language);
+            return $next($request); 
+        });
+    }
     public function index()
     {
         $data['users'] = DB::table('users')
-            ->orderBy('id', 'desc')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->orderBy('users.id', 'desc')
+            ->select('users.*', 'roles.name as rname')
             ->paginate(config('app.row'));
         return view('users.index', $data);
     }
-
+    // Create user function
     public function create()
     {
-        return view('users.create');
+        $data['roles'] = DB::table('roles')
+            ->where('active', 1)
+            ->get();
+        return view('users.create', $data);
     }
-
+    // Save user function
     public function save(Request $r)
     {
         $data = array(
             'name' => $r->name,
             'email' => $r->email,
             'username' => $r->username,
+            'role_id' => $r->role,
+            'language' =>$r->language,
             'password' => bcrypt($r->password)
         );
         if($r->photo)
         {
             $data['photo'] = $r->file('photo')->store('uploads/users','custom');
         }
-        $i = DB::table('users')->insert($data);
+        $i = DB::table('users')
+            ->insert($data);
         
         if($i)
         {
@@ -44,6 +59,7 @@ class UserController extends Controller
             return redirect('user/create')->withInput();
         }
     }
+    //Delete user function
     public function delete($id, Request $r)
     {
         DB::table('users')
@@ -53,19 +69,26 @@ class UserController extends Controller
         $r->session()->flash('success', 'Data has been removed!');
         return redirect('user');
     }
-
+    //Edit user function
     public function edit($id)
     {
-        $data['user'] = DB::table('users')->where('id', $id)->first();
+        $data['roles'] = DB::table('roles')
+            ->where('active', 1)
+            ->get();
+        $data['user'] = DB::table('users')
+            ->where('id', $id)
+            ->first();
         return view('users.edit', $data);
     }
-
+    //Update user function
     public function update(Request $r)
     {
         $data = array(
             'name' => $r->name,
             'email' => $r->email,
             'username' => $r->username,
+            'language' =>$r->language,
+            'role_id' => $r->role
         );
 
         if($r->password!="")
@@ -85,7 +108,7 @@ class UserController extends Controller
             return redirect('user/edit/' .$r->id);
         }
     }
-
+    //User logout
     public function logout()
     {
         Auth::logout();

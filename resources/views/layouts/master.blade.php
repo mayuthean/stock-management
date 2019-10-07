@@ -11,6 +11,9 @@
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="{{asset('css/vendor.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/component-chosen.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/fontawesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     @yield('css')
     <!-- Theme initialization -->
 </head>
@@ -122,20 +125,22 @@
                     <nav class="menu">
                         <ul class="sidebar-menu metismenu" id="sidebar-menu">
                             <li class="active">
-                                <a href="index.html">
+                                <a href="{{url('/')}}">
                                     <i class="fa fa-home"></i> Dashboard </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <i class="fa fa-key"></i> Security <i class="fa arrow"></i>
+                                    <i class="fa fa-key"></i> {{trans('label.security')}} <i class="fa arrow"></i>
                                 </a>
                                 <ul class="sidebar-nav">
                                     <li>
                                     <a href="{{url('user')}}">
-                                            <i class="fa fa-arrow-right"></i> Users</a>
+                                            <i class="fa fa-arrow-right"></i> {{trans('label.user')}}</a>
                                     </li>
                                     <li>
-                                        <a href="item-editor.html"> Item Editor </a>
+                                        <a href="{{url('role')}}"> 
+                                        <i class="fa fa-arrow-right"></i> {{trans('label.role')}}
+                                        </a>
                                     </li>
                                 </ul>
 
@@ -271,6 +276,12 @@
     </div>
     <script src="{{asset('js/vendor.js')}}"></script>
     <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/chosen.jquery.min.js')}}"></script>
+    <script>
+       $(document).ready(function(){
+        $(.chosen-select).chosen();
+       });
+    </script>
     @yield('js')
 </body>
 

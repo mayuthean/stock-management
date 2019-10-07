@@ -66,6 +66,27 @@
                                 <input type="password" class="form-control" id="password" name="password" value="{{old('password')}}">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-4">Role <span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                                <select name="role" id="role" class="form-control">
+                                    <option value="">--select--</option>
+                                    @foreach($roles as $role)
+                                    <option value="{{$role->id}}" {{$user->role_id==$role->id?'selected':''}}>{{$role->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="language" class="col-sm-4">Languages <span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                                <select name="language" id="language" class="form-control">
+                                    <option value="en" {{$user->language=='en'?'selected':''}}>English</option>
+                                    <option value="km" {{$user->language=='km'?'selected':''}}>ភាសាខ្មែរ</option>
+                                   
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-s m-3">
                         <div class="form-group row">
