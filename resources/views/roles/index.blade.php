@@ -33,7 +33,10 @@
                     @foreach ($roles as $role)
                     <tr>
                         <td>{{$i++}}</td> 
-                        <td>{{$role->name}}</td> 
+                        <td> 
+                            <a href="{{url('role/detail/'.$role->id)}}">{{$role->name}}</a>
+                        </td> 
+                        </a>
                         <td>
                             <a href="{{url('role/delete/'.$role->id)}}" class="text-danger" title="Delete" onclick="return confirm('Are you sure!')">
                                <i class="fa fa-trash"></i>

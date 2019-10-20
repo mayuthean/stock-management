@@ -13,6 +13,18 @@ class RoleController extends Controller
             ->paginate(config('app.row'));
         return view('roles.index', $data);
     }
+    public function detail($id)
+    {
+        $data['role'] = DB::table('roles')
+            ->where('id', $id)
+            ->first();
+        $sql = "select permissions.alias, tbl.* from permissions
+            left join (select * from role_permissions where role_id=$id) as tbl 
+            on permissions.id = tbl.permission_id"; 
+
+        $data['permissions'] = DB::select($sql);       
+        return view('roles.detail', $data);
+    }
     //Create Role Function
     public function create()
     {
